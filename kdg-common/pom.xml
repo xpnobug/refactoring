@@ -31,22 +31,27 @@
     </dependency>
   </dependencies>
 
+<!--  <build>-->
+<!--    <plugins>-->
+<!--      <plugin>-->
+<!--        <groupId>org.springframework.boot</groupId>-->
+<!--        <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--        <configuration>-->
+<!--          &lt;!&ndash;一定要有下面这一行&ndash;&gt;-->
+<!--          <classifier>exec</classifier>-->
+<!--        </configuration>-->
+<!--      </plugin>-->
+<!--    </plugins>-->
+<!--  </build>-->
+<!--  不需要main入口，可以直接删除pom.xml中的build标签；如果是子模块可以使用skip跳过spring打包-->
   <build>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <configuration>
-          <!--一定要有下面这一行-->
-          <classifier>exec</classifier>
+          <skip>true</skip>
         </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>repackage</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
   </build>
