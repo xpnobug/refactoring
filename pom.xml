@@ -23,7 +23,7 @@
     <!-- 通用模块 -->
     <module>kdg-common</module>
     <!-- 工具模块 -->
-    <module>kdg-tool</module>
+    <!--    <module>kdg-tool</module>-->
     <!-- 业务实现 -->
     <module>kdg-service</module>
   </modules>
@@ -36,10 +36,10 @@
     <mysql-version>8.0.25</mysql-version>
     <minio-version>8.4.5</minio-version>
     <okhttp.version>4.8.1</okhttp.version>
+    <spring.boot.version>2.5.6</spring.boot.version>
   </properties>
 
   <dependencies>
-
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter</artifactId>
@@ -148,12 +148,20 @@
   </dependencyManagement>
 
   <build>
+    <!--替换profiles环境变量值-->
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
     <plugins>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-      </plugin>
+    <!-- spring boot 打包插件 -->
+    <plugin>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-maven-plugin</artifactId>
+      <version>${spring.boot.version}</version>
+    </plugin>
     </plugins>
   </build>
-
 </project>

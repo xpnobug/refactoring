@@ -10,9 +10,7 @@
     <version>${revision}</version>
   </parent>
 
-
   <artifactId>kdg-common</artifactId>
-  <packaging>jar</packaging>
 
   <name>${project.artifactId}</name>
   <description>kdg-common</description>
@@ -38,8 +36,11 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <!--一定要有下面这一行-->
+          <classifier>exec</classifier>
+        </configuration>
       </plugin>
     </plugins>
   </build>
-
 </project>
