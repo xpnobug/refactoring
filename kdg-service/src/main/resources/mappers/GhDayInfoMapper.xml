@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kdg.refactoring.kdgservice.travel.mapper.GhDayInfoMapper">
+
+  <resultMap type="com.kdg.refactoring.kdgservice.travel.entity.GhDayInfo" id="GhDayInfoMap">
+    <result property="dayId" column="day_id" jdbcType="VARCHAR"/>
+    <result property="dayTitle" column="day_title" jdbcType="VARCHAR"/>
+    <result property="dayDesc" column="day_desc" jdbcType="VARCHAR"/>
+    <result property="dayStartTime" column="day_start_time" jdbcType="TIMESTAMP"/>
+    <result property="dayEndTime" column="day_end_time" jdbcType="TIMESTAMP"/>
+    <result property="dayBudget" column="day_budget" jdbcType="VARCHAR"/>
+    <result property="dayState" column="day_state" jdbcType="VARCHAR"/>
+  </resultMap>
+
+  <sql id="base_column">
+    day_id
+    , day_title, day_desc, day_start_time, day_end_time, day_budget, day_state    </sql>
+
+  <!--用于粘贴复制-->
+  <select id="test" resultMap="GhDayInfoMap">
+    select
+    day_id, day_title, day_desc, day_start_time, day_end_time, day_budget, day_state
+    from voyage_guide.gh_day_info
+    <where>
+      <if test="dayId != null and dayId != ''">
+        and day_id = #{dayId}
+      </if>
+      <if test="dayTitle != null and dayTitle != ''">
+        and day_title = #{dayTitle}
+      </if>
+      <if test="dayDesc != null and dayDesc != ''">
+        and day_desc = #{dayDesc}
+      </if>
+      <if test="dayStartTime != null">
+        and day_start_time = #{dayStartTime}
+      </if>
+      <if test="dayEndTime != null">
+        and day_end_time = #{dayEndTime}
+      </if>
+      <if test="dayBudget != null and dayBudget != ''">
+        and day_budget = #{dayBudget}
+      </if>
+      <if test="dayState != null and dayState != ''">
+        and day_state = #{dayState}
+      </if>
+    </where>
+  </select>
+
+  <!-- selectById 映射语句 -->
+  <select id="getGhDayInfoById" parameterType="string" resultType="com.kdg.refactoring.kdgservice.travel.entity.GhDayInfo">
+    SELECT * FROM gh_day_info WHERE day_id = #{dayId}
+  </select>
+
+</mapper>
+

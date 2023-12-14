@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kdg.refactoring.kdgservice.travel.mapper.GhImagesMapper">
+
+  <resultMap type="com.kdg.refactoring.kdgservice.travel.entity.GhImages" id="GhImagesMap">
+    <result property="imageId" column="image_id" jdbcType="VARCHAR"/>
+    <result property="tripId" column="trip_id" jdbcType="VARCHAR"/>
+    <result property="detailId" column="detail_id" jdbcType="VARCHAR"/>
+    <result property="url" column="url" jdbcType="VARCHAR"/>
+  </resultMap>
+
+  <sql id="base_column">
+    image_id
+    , trip_id, detail_id, url    </sql>
+
+  <!--用于粘贴复制-->
+  <select id="test" resultMap="GhImagesMap">
+    select
+    image_id, trip_id, detail_id, url
+    from voyage_guide.gh_images
+    <where>
+      <if test="imageId != null and imageId != ''">
+        and image_id = #{imageId}
+      </if>
+      <if test="tripId != null and tripId != ''">
+        and trip_id = #{tripId}
+      </if>
+      <if test="detailId != null and detailId != ''">
+        and detail_id = #{detailId}
+      </if>
+      <if test="url != null and url != ''">
+        and url = #{url}
+      </if>
+    </where>
+  </select>
+
+
+</mapper>
+

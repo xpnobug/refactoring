@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kdg.refactoring.kdgservice.travel.mapper.GhTripDetailsMapper">
+
+  <resultMap type="com.kdg.refactoring.kdgservice.travel.entity.GhTripDetails"
+    id="GhTripDetailsMap">
+    <result property="detailId" column="detail_id" jdbcType="VARCHAR"/>
+    <result property="dayId" column="day_id" jdbcType="VARCHAR"/>
+    <result property="title" column="title" jdbcType="VARCHAR"/>
+    <result property="money" column="money" jdbcType="OTHER"/>
+    <result property="traffic" column="traffic" jdbcType="VARCHAR"/>
+    <result property="startCity" column="start_city" jdbcType="VARCHAR"/>
+    <result property="endCity" column="end_city" jdbcType="VARCHAR"/>
+    <result property="startTime" column="start_time" jdbcType="TIMESTAMP"/>
+    <result property="endTime" column="end_time" jdbcType="TIMESTAMP"/>
+    <result property="description" column="description" jdbcType="VARCHAR"/>
+    <result property="position" column="position" jdbcType="VARCHAR"/>
+    <result property="creatType" column="creat_type" jdbcType="VARCHAR"/>
+  </resultMap>
+
+  <sql id="base_column">
+    detail_id
+    , day_id, title, money, traffic, start_city, end_city, start_time, end_time, description, position, creat_type    </sql>
+
+  <!--用于粘贴复制-->
+  <select id="test" resultMap="GhTripDetailsMap">
+    select
+    detail_id, day_id, title, money, traffic, start_city, end_city, start_time, end_time,
+    description, position, creat_type
+    from voyage_guide.gh_trip_details
+    <where>
+      <if test="detailId != null and detailId != ''">
+        and detail_id = #{detailId}
+      </if>
+      <if test="dayId != null and dayId != ''">
+        and day_id = #{dayId}
+      </if>
+      <if test="title != null and title != ''">
+        and title = #{title}
+      </if>
+      <if test="money != null">
+        and money = #{money}
+      </if>
+      <if test="traffic != null and traffic != ''">
+        and traffic = #{traffic}
+      </if>
+      <if test="startCity != null and startCity != ''">
+        and start_city = #{startCity}
+      </if>
+      <if test="endCity != null and endCity != ''">
+        and end_city = #{endCity}
+      </if>
+      <if test="startTime != null">
+        and start_time = #{startTime}
+      </if>
+      <if test="endTime != null">
+        and end_time = #{endTime}
+      </if>
+      <if test="description != null and description != ''">
+        and description = #{description}
+      </if>
+      <if test="position != null and position != ''">
+        and position = #{position}
+      </if>
+      <if test="creatType != null and creatType != ''">
+        and creat_type = #{creatType}
+      </if>
+    </where>
+  </select>
+
+
+</mapper>
+

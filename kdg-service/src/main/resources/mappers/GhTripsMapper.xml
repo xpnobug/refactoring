@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kdg.refactoring.kdgservice.travel.mapper.GhTripsMapper">
+
+  <resultMap type="com.kdg.refactoring.kdgservice.travel.entity.GhTrips" id="GhTripsMap">
+    <result property="tripId" column="trip_id" jdbcType="VARCHAR"/>
+    <result property="userId" column="user_id" jdbcType="INTEGER"/>
+    <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
+  </resultMap>
+
+  <sql id="base_column">
+    trip_id
+    , user_id, created_at    </sql>
+
+  <!--用于粘贴复制-->
+  <select id="test" resultMap="GhTripsMap">
+    select
+    trip_id, user_id, created_at
+    from voyage_guide.gh_trips
+    <where>
+      <if test="tripId != null and tripId != ''">
+        and trip_id = #{tripId}
+      </if>
+      <if test="userId != null">
+        and user_id = #{userId}
+      </if>
+      <if test="createdAt != null">
+        and created_at = #{createdAt}
+      </if>
+    </where>
+  </select>
+
+
+</mapper>
+

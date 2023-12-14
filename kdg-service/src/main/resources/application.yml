@@ -1,0 +1,82 @@
+server:
+  port: 8080
+
+
+--- ### Spring 配置
+spring:
+  ## 环境配置
+  profiles:
+    # 启用的环境
+    active: dev
+  datasource:
+    url: jdbc:mysql://${mysql.ip}:${mysql.port}/${mysql.db}?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: ${mysql.username}
+    password: ${mysql.password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      minimum-idle: 3
+      maximum-pool-size: 10
+      max-lifetime: 30000   #不能小于30秒，否则默认回到1800秒
+      connection-test-query: SELECT 1
+#  main:
+#    # 允许定义重名的 bean 对象覆盖原有的 bean
+#    allow-bean-definition-overriding: true
+#    # 允许循环依赖
+#    allow-circular-references: true
+#  ## MVC 配置
+#  mvc:
+#    format:
+#      # 日期格式化（针对 java.util.Date）
+#      date-time: yyyy-MM-dd HH:mm:ss
+  ## JSON 配置
+  jackson:
+    # 时区配置
+    time-zone: GMT+8
+    # 日期格式化（针对 java.util.Date）
+    date-format: yyyy-MM-dd HH:mm:ss
+    # 序列化配置（Bean -> JSON）
+    serialization:
+      # 允许序列化无属性的 Bean
+      FAIL_ON_EMPTY_BEANS: false
+    # 反序列化配置（JSON -> Bean）
+    deserialization:
+      # 允许反序列化不存在的属性
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  #minio配置
+  minio:
+    access-key: Enc(GqQx4Y0tWL66NjDAlSVlPALIZpReZy0ePWI02DM+aRw=)
+    secret-key: Enc(8dnxbznri5t8d/KWkKBskdFWJhTR/cDtc8QOqa8rPkLWnjnWwW0hlOR3btLCWeliJ+nw322rJvU=)
+    url: http://8.140.45.252:9000  #访问地址
+    bucket-name: travel
+#配置日志
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: mappers/*
+--- ### 跨域配置
+cors:
+  enabled: true
+  # 配置允许跨域的域名
+  allowed-origins: '*'
+  # 配置允许跨域的请求方式
+  allowed-methods: '*'
+  # 配置允许跨域的请求头
+  allowed-headers: '*'
+  # 配置允许跨域的响应头
+  exposed-headers: '*'
+### 加密
+jasypt:
+  encryptor:
+    # 加密的秘钥
+    password: haha
+    # 加密算法
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
+    property:
+      # 算法识别的前后缀，默认ENC()，包含在前后缀的加密信息，会使用指定算法解密
+      prefix: Enc(
+      suffix: )

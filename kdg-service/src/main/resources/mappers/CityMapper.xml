@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kdg.refactoring.kdgservice.travel.mapper.CityMapper">
+
+  <resultMap type="com.kdg.refactoring.kdgservice.travel.entity.City" id="CityMap">
+    <result property="id" column="id" jdbcType="INTEGER"/>
+    <result property="cityName" column="city_name" jdbcType="VARCHAR"/>
+    <result property="cityCode" column="city_code" jdbcType="VARCHAR"/>
+    <result property="country" column="country" jdbcType="VARCHAR"/>
+    <result property="cityImg" column="city_Img" jdbcType="VARCHAR"/>
+    <result property="parentId" column="parent_id" jdbcType="VARCHAR"/>
+    <result property="parentName" column="parent_name" jdbcType="VARCHAR"/>
+    <result property="cityType" column="city_type" jdbcType="VARCHAR"/>
+    <result property="parentDicId" column="parent_dic_id" jdbcType="VARCHAR"/>
+    <result property="visitTime" column="visit_time" jdbcType="VARCHAR"/>
+    <result property="description" column="description" jdbcType="VARCHAR"/>
+    <result property="state" column="state" jdbcType="INTEGER"/>
+    <result property="admissionFee" column="admission_fee" jdbcType="OTHER"/>
+    <result property="position" column="position" jdbcType="VARCHAR"/>
+    <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
+    <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    <result property="updateUser" column="update_user" jdbcType="VARCHAR"/>
+    <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+  </resultMap>
+
+  <sql id="base_column">
+    id
+    , city_name, city_code, country, city_Img, parent_id, parent_name, city_type, parent_dic_id, visit_time, description, state, admission_fee, position, create_user, create_time, update_user, update_time    </sql>
+
+  <!--用于粘贴复制-->
+  <select id="test" resultMap="CityMap">
+    select
+    id, city_name, city_code, country, city_Img, parent_id, parent_name, city_type, parent_dic_id,
+    visit_time, description, state, admission_fee, position, create_user, create_time, update_user,
+    update_time
+    from voyage_guide.city
+    <where>
+      <if test="id != null">
+        and id = #{id}
+      </if>
+      <if test="cityName != null and cityName != ''">
+        and city_name = #{cityName}
+      </if>
+      <if test="cityCode != null and cityCode != ''">
+        and city_code = #{cityCode}
+      </if>
+      <if test="country != null and country != ''">
+        and country = #{country}
+      </if>
+      <if test="cityImg != null and cityImg != ''">
+        and city_Img = #{cityImg}
+      </if>
+      <if test="parentId != null and parentId != ''">
+        and parent_id = #{parentId}
+      </if>
+      <if test="parentName != null and parentName != ''">
+        and parent_name = #{parentName}
+      </if>
+      <if test="cityType != null and cityType != ''">
+        and city_type = #{cityType}
+      </if>
+      <if test="parentDicId != null and parentDicId != ''">
+        and parent_dic_id = #{parentDicId}
+      </if>
+      <if test="visitTime != null and visitTime != ''">
+        and visit_time = #{visitTime}
+      </if>
+      <if test="description != null and description != ''">
+        and description = #{description}
+      </if>
+      <if test="state != null">
+        and state = #{state}
+      </if>
+      <if test="admissionFee != null">
+        and admission_fee = #{admissionFee}
+      </if>
+      <if test="position != null and position != ''">
+        and position = #{position}
+      </if>
+      <if test="createUser != null and createUser != ''">
+        and create_user = #{createUser}
+      </if>
+      <if test="createTime != null">
+        and create_time = #{createTime}
+      </if>
+      <if test="updateUser != null and updateUser != ''">
+        and update_user = #{updateUser}
+      </if>
+      <if test="updateTime != null">
+        and update_time = #{updateTime}
+      </if>
+    </where>
+  </select>
+
+
+</mapper>
+
