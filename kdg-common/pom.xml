@@ -40,6 +40,13 @@
           <!--一定要有下面这一行-->
           <classifier>exec</classifier>
         </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
