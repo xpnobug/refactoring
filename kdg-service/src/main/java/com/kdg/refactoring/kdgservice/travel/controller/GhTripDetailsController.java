@@ -80,6 +80,7 @@ public class GhTripDetailsController {
      */
     @GetMapping("/delDetailsInfo")
     public JsonObjectResult delete(String infoId) {
+
         System.out.println("进入");
         return JsonObjectResult.success(this.ghTripDetailsService.removeById(infoId));
     }
