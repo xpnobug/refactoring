@@ -1,9 +1,12 @@
 package com.kdg.refactoring.kdgservice.travel.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.kdg.refactoring.kdgservice.travel.mapper.GhImagesMapper;
 import com.kdg.refactoring.kdgservice.travel.entity.GhImages;
 import com.kdg.refactoring.kdgservice.travel.service.GhImagesService;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,4 +19,13 @@ import org.springframework.stereotype.Service;
 public class GhImagesServiceImpl extends ServiceImpl<GhImagesMapper, GhImages> implements
     GhImagesService {
 
+    @Autowired
+    private GhImagesMapper ghImagesMapper;
+    @Override
+    public List<GhImages> getImgList(String id) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("detail_id",id);
+        List<GhImages> imagesList = ghImagesMapper.getImgList(id);
+        return imagesList;
+    }
 }

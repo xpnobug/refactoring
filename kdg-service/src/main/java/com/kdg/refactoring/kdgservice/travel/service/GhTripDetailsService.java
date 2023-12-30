@@ -18,4 +18,5 @@ public interface GhTripDetailsService extends IService<GhTripDetails> {
     List<Data> selectTripList(GhTripDetails ghTripDetails);
 
     boolean addDetailsInfo(GhImgesInfo ghTripDetails);
+    boolean updDetailsInfo(GhImgesInfo ghTripDetails);
 }

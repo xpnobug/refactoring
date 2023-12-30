@@ -35,6 +35,8 @@
     </where>
   </select>
 
-
+  <select id="getImgList" parameterType="string" resultType="com.kdg.refactoring.kdgservice.travel.entity.GhImages">
+    SELECT * FROM voyage_guide.gh_images WHERE image_id = #{imageId}
+  </select>
 </mapper>
 

@@ -47,8 +47,8 @@ public class GhTripDetailsController {
      * @param id 主键
      * @return 单条数据
      */
-    @GetMapping("{id}")
-    public JsonObjectResult selectOne(@PathVariable Serializable id) {
+    @GetMapping("/detail")
+    public JsonObjectResult selectOne(String id) {
         return JsonObjectResult.success(this.ghTripDetailsService.getById(id));
     }
 
@@ -69,19 +69,18 @@ public class GhTripDetailsController {
      * @param ghTripDetails 实体对象
      * @return 修改结果
      */
-    @PutMapping
-    public JsonObjectResult update(@RequestBody GhTripDetails ghTripDetails) {
-        return JsonObjectResult.success(this.ghTripDetailsService.updateById(ghTripDetails));
+    @PostMapping("/updDetailsInfo")
+    public JsonObjectResult update(@RequestBody GhImgesInfo ghTripDetails) {
+        return JsonObjectResult.success(this.ghTripDetailsService.updDetailsInfo(ghTripDetails));
     }
 
     /**
      * 删除数据
-     *
-     * @param idList 主键结合
      * @return 删除结果
      */
-    @DeleteMapping
-    public JsonObjectResult delete(@RequestBody List<Long> idList) {
-        return JsonObjectResult.success(this.ghTripDetailsService.removeByIds(idList));
+    @GetMapping("/delDetailsInfo")
+    public JsonObjectResult delete(String infoId) {
+        System.out.println("进入");
+        return JsonObjectResult.success(this.ghTripDetailsService.removeById(infoId));
     }
 }

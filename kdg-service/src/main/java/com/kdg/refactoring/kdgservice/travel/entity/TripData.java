@@ -7,6 +7,7 @@ import java.util.List;
 public class TripData {
 
     public static class DateArr {
+        private String detailId;
         private String title;
         private String money;
         private String traffic;
@@ -20,6 +21,14 @@ public class TripData {
         private String creatType;
         private String dayTab;
         // Getters and Setters
+
+        public String getDetailId() {
+            return detailId;
+        }
+
+        public void setDetailId(String detailId) {
+            this.detailId = detailId;
+        }
 
         public String getTitle() {
             return title;

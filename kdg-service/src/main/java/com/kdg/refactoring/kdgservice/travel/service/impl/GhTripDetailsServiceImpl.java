@@ -94,6 +94,7 @@ public class GhTripDetailsServiceImpl extends
     @Override
     public boolean addDetailsInfo(GhImgesInfo ghTripDetails) {
         GhTripDetails details = new GhTripDetails();
+        details.setDetailId(ghTripDetails.getDetailId());
         details.setTitle(ghTripDetails.getTitle());
         details.setDescription(ghTripDetails.getDescription());
         details.setMoney(ghTripDetails.getMoney());
@@ -128,6 +129,45 @@ public class GhTripDetailsServiceImpl extends
         return saveDetails;
     }
 
+    @Override
+    public boolean updDetailsInfo(GhImgesInfo ghTripDetails) {
+        GhTripDetails details = new GhTripDetails();
+        details.setDetailId(ghTripDetails.getDetailId());
+        details.setTitle(ghTripDetails.getTitle());
+        details.setDescription(ghTripDetails.getDescription());
+        details.setMoney(ghTripDetails.getMoney());
+        details.setStartCity(ghTripDetails.getStartCity());
+        details.setEndCity(ghTripDetails.getEndCity());
+        details.setStartTime(ghTripDetails.getStartTime());
+        details.setEndTime(ghTripDetails.getEndTime());
+        details.setPosition(ghTripDetails.getPosition());
+        details.setTraffic(ghTripDetails.getTraffic());
+        details.setCreatType(ghTripDetails.getCreatType());
+        details.setDayId(ghTripDetails.getDayId());
+        details.setDayTab(ghTripDetails.getDayTab());
+        // 保存行程详情
+        boolean updDetails = ghTripDetailsService.updateById(details);
+
+        String detailId = details.getDetailId();
+        List<GhImages> imagesList = ghImagesService.getImgList(detailId);
+
+        // 添加图片
+        List<GhImages> imgList = ghTripDetails.getImgList();
+        if (imgList != null && !imgList.isEmpty()) {
+            // 使用 stream 进行遍历，并将每个图片信息设置为对应的 detailId 后保存
+            for (GhImages images : imgList) {
+                GhImages ghImages = new GhImages();
+                ghImages.setImageId(UUID.randomUUID().toString());
+                ghImages.setDetailId(detailId);
+                ghImages.setUrl(images.getUrl());
+                ghImages.setFileName(images.getFileName());
+                ghImagesService.save(ghImages);
+            }
+            // 如果保存图片成功，返回 true；否则返回 false
+        }
+        return updDetails;
+    }
+
     /**
      * 实现 GhTripDetails 到 DateArr 的转换
      *
@@ -136,6 +176,7 @@ public class GhTripDetailsServiceImpl extends
      */
     private void convertToDataArr(GhTripDetails tripDetails, DateArr dateArr) {
         // 将 GhTripDetails 的属性赋值给 DateArr
+        dateArr.setDetailId(tripDetails.getDetailId());
         dateArr.setTitle(tripDetails.getTitle());
         dateArr.setMoney(String.valueOf(tripDetails.getMoney()));
         dateArr.setTraffic(tripDetails.getTraffic());
