@@ -9,13 +9,13 @@ import java.util.List;
 
 public class GhImgesInfo extends GhTripDetails{
 
-    private List<String> imgList;
+    private List<GhImages> imgList;
 
-    public List<String> getImgList() {
+    public List<GhImages> getImgList() {
         return imgList;
     }
 
-    public void setImgList(List<String> imgList) {
+    public void setImgList(List<GhImages> imgList) {
         this.imgList = imgList;
     }
 

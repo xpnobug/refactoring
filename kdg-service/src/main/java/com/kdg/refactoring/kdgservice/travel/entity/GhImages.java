@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 /**
  * 用于存储所有图片的表(GhImages)表实体类
  *
- * @author couei
- * @since 2023-12-08 01:10:57
+ * @author sndshun
+ * @since 2023-12-20 03:13:42
  */
 
 @Data
@@ -39,5 +39,10 @@ public class GhImages {
      */
 
     private String url;
+    /**
+     * 图片的 URL 名称
+     */
+
+    private String fileName;
 
 }

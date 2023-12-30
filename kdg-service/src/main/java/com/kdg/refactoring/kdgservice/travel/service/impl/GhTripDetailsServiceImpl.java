@@ -2,6 +2,7 @@ package com.kdg.refactoring.kdgservice.travel.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.kdg.refactoring.kdgservice.picgo.minio.util.MinioUtils;
 import com.kdg.refactoring.kdgservice.travel.entity.GhImages;
 import com.kdg.refactoring.kdgservice.travel.entity.GhImgesInfo;
 import com.kdg.refactoring.kdgservice.travel.entity.TripData.Data;
@@ -17,6 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +42,9 @@ public class GhTripDetailsServiceImpl extends
     private GhTripDetailsService ghTripDetailsService;
     @Autowired
     private GhImagesService ghImagesService;
+
+    @Autowired
+    private MinioUtils minioUtils;
 
     // 重写接口方法
     @Override
@@ -107,13 +112,15 @@ public class GhTripDetailsServiceImpl extends
         String detailId = details.getDetailId();
 
         // 添加图片
-        List<String> imgList = ghTripDetails.getImgList();
+        List<GhImages> imgList = ghTripDetails.getImgList();
         if (imgList != null && !imgList.isEmpty()) {
             // 使用 stream 进行遍历，并将每个图片信息设置为对应的 detailId 后保存
-            for (String s : imgList) {
+            for (GhImages images : imgList) {
                 GhImages ghImages = new GhImages();
+                ghImages.setImageId(UUID.randomUUID().toString());
                 ghImages.setDetailId(detailId);
-                ghImages.setUrl(s);
+                ghImages.setUrl(images.getUrl());
+                ghImages.setFileName(images.getFileName());
                 ghImagesService.save(ghImages);
             }
             // 如果保存图片成功，返回 true；否则返回 false
@@ -155,6 +162,14 @@ public class GhTripDetailsServiceImpl extends
         QueryWrapper<GhImages> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("detail_Id",tripDetails.getDetailId());
         List<GhImages> ghImagesList = ghImagesMapper.selectList(queryWrapper);
+        for (GhImages ghImages : ghImagesList) {
+            if (ghImages.getFileName()!=null){
+                String fileUrl = minioUtils.getFileUrl(ghImages.getFileName());
+                ghImages.setUrl(fileUrl);
+                ghImagesService.updateById(ghImages);
+            }
+
+        }
         dateArr.setImgList(ghImagesList);
     }
 }
