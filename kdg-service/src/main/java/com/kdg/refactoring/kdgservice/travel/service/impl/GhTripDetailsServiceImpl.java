@@ -51,7 +51,7 @@ public class GhTripDetailsServiceImpl extends
     public List<Data> selectTripList(GhTripDetails ghTripDetails) {
         // 使用 MyBatis Plus 的 QueryWrapper 进行条件查询
         QueryWrapper<GhTripDetails> queryWrapper = new QueryWrapper<>(ghTripDetails);
-        queryWrapper.eq("day_tab",ghTripDetails.getDayTab());
+        queryWrapper.eq("day_tab", ghTripDetails.getDayTab());
         queryWrapper.orderByAsc("start_time");
         List<GhTripDetails> tripList = ghTripDetailsMapper.selectList(queryWrapper);
 
@@ -70,7 +70,7 @@ public class GhTripDetailsServiceImpl extends
             DateArr dateArr = new DateArr();
 
             // 将 GhTripDetails 的属性赋值给 DateArr
-            if (tripDetails.getDayId() !=null){
+            if (tripDetails.getDayId() != null) {
                 convertToDataArr(tripDetails, dateArr);
                 // 将 DateArr 添加到 MouthData 中的 dateArr 列表
                 mouthData.getDateArr().add(dateArr);
@@ -88,6 +88,7 @@ public class GhTripDetailsServiceImpl extends
 
     /**
      * 添加行程详情
+     *
      * @param ghTripDetails
      * @return
      */
@@ -150,11 +151,12 @@ public class GhTripDetailsServiceImpl extends
 
         String detailId = details.getDetailId();
         List<GhImages> imagesList = ghImagesService.getImgList(detailId);
+        //查出和规划关联的图片
 
         // 添加图片
         List<GhImages> imgList = ghTripDetails.getImgList();
         if (imgList != null && !imgList.isEmpty()) {
-            // 使用 stream 进行遍历，并将每个图片信息设置为对应的 detailId 后保存
+            // 将每个图片信息设置为对应的 detailId 后保存
             for (GhImages images : imgList) {
                 GhImages ghImages = new GhImages();
                 ghImages.setImageId(UUID.randomUUID().toString());
@@ -166,6 +168,11 @@ public class GhTripDetailsServiceImpl extends
             // 如果保存图片成功，返回 true；否则返回 false
         }
         return updDetails;
+    }
+
+    @Override
+    public GhImgesInfo getOne(String detailId, String dayTab) {
+        return ghTripDetailsMapper.getOne(detailId, dayTab);
     }
 
     /**
@@ -201,10 +208,10 @@ public class GhTripDetailsServiceImpl extends
         dateArr.setDayTab(tripDetails.getDayTab());
 
         QueryWrapper<GhImages> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("detail_Id",tripDetails.getDetailId());
+        queryWrapper.eq("detail_Id", tripDetails.getDetailId());
         List<GhImages> ghImagesList = ghImagesMapper.selectList(queryWrapper);
         for (GhImages ghImages : ghImagesList) {
-            if (ghImages.getFileName()!=null){
+            if (ghImages.getFileName() != null) {
                 String fileUrl = minioUtils.getFileUrl(ghImages.getFileName());
                 ghImages.setUrl(fileUrl);
                 ghImagesService.updateById(ghImages);

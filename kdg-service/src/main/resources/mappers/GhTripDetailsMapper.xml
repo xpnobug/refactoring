@@ -70,5 +70,17 @@
   </select>
 
 
+  <select id="getOne" resultMap="GhTripDetailsMap">
+    select * from voyage_guide.gh_trip_details
+    <where>
+      <if test="detailId != null and detailId != ''">
+        and detail_id = #{detailId}
+      </if>
+      <if test="dayTab != null and dayTab != ''">
+        and day_tab = #{dayTab}
+      </if>
+    </where>
+  </select>
+
 </mapper>
 

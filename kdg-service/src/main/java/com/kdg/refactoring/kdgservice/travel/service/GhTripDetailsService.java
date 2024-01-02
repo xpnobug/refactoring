@@ -3,7 +3,6 @@ package com.kdg.refactoring.kdgservice.travel.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.kdg.refactoring.kdgservice.travel.entity.GhImgesInfo;
 import com.kdg.refactoring.kdgservice.travel.entity.GhTripDetails;
-import com.kdg.refactoring.kdgservice.travel.entity.TripData;
 import com.kdg.refactoring.kdgservice.travel.entity.TripData.Data;
 import java.util.List;
 
@@ -19,4 +18,6 @@ public interface GhTripDetailsService extends IService<GhTripDetails> {
 
     boolean addDetailsInfo(GhImgesInfo ghTripDetails);
     boolean updDetailsInfo(GhImgesInfo ghTripDetails);
+
+    GhImgesInfo getOne(String detailId, String dayTab);
 }

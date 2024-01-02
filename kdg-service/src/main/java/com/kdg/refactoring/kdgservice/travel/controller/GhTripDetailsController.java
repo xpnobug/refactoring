@@ -53,6 +53,17 @@ public class GhTripDetailsController {
     }
 
     /**
+     *
+     * @param detailId
+     * @param dayTab
+     * @return
+     */
+    @GetMapping("/getOne")
+    public JsonObjectResult getOne(String detailId, String dayTab) {
+        return JsonObjectResult.success(this.ghTripDetailsService.getOne(detailId,dayTab));
+    }
+
+    /**
      * 新增数据
      *
      * @param ghTripDetails 实体对象
@@ -80,7 +91,6 @@ public class GhTripDetailsController {
      */
     @GetMapping("/delDetailsInfo")
     public JsonObjectResult delete(String infoId) {
-
         System.out.println("进入");
         return JsonObjectResult.success(this.ghTripDetailsService.removeById(infoId));
     }

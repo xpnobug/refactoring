@@ -1,6 +1,7 @@
 package com.kdg.refactoring.kdgservice.travel.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.kdg.refactoring.kdgservice.travel.entity.GhImgesInfo;
 import com.kdg.refactoring.kdgservice.travel.entity.GhTripDetails;
 
 /**
@@ -10,5 +11,5 @@ import com.kdg.refactoring.kdgservice.travel.entity.GhTripDetails;
  * @since 2023-12-08 01:09:04
  */
 public interface GhTripDetailsMapper extends BaseMapper<GhTripDetails> {
-
+    GhImgesInfo getOne(String detailId, String dayTab);
 }
